@@ -1,0 +1,87 @@
+{
+  "date": "2026-06-29",
+  "dateCN": "2026年6月29日 星期一",
+  "tags": ["🔴 极度恐惧", "📉 全球承压", "🌍 地缘缓和"],
+  "tldr": [
+    { "label": "🏛️ 美联储", "value": "利率 3.50%-3.75% 不变", "cls": "" },
+    { "label": "🪙 Bitcoin", "value": "$59,900 · -0.5%", "cls": "down" },
+    { "label": "🛢️ 原油 WTI", "value": "$72.93 · 月跌 20%", "cls": "down" },
+    { "label": "📊 纳斯达克", "value": "25,298 · 周跌 4.6%", "cls": "down" },
+    { "label": "🤖 Anthropic", "value": "估值 $9,650 亿", "cls": "up" }
+  ],
+  "stocks": {
+    "indices": [
+      { "flag": "🇨🇳", "name": "上证 SSE", "price": 4020.44, "change": -0.17 },
+      { "flag": "🇭🇰", "name": "恒生 HSI", "price": 22671.86, "change": -1.76 },
+      { "flag": "🇺🇸", "name": "标普 S&P 500", "price": 7354.02, "change": -0.05 },
+      { "flag": "🇺🇸", "name": "纳斯达克 NASDAQ", "price": 25297.62, "change": -0.24 },
+      { "flag": "🇺🇸", "name": "道琼斯 DJIA", "price": 51876.11, "change": -0.09 }
+    ],
+    "insight": "纳指上周累跌 4.6%，创年内最大单周跌幅。AI 高估值个股遭获利了结。盘前期货 +0.5%，美伊停火消息提振。"
+  },
+  "crypto": {
+    "btc": { "price": 59900, "change": -0.5 },
+    "eth": { "price": 1560, "change": -0.8 },
+    "fearGreed": 17,
+    "fearLabel": "Extreme Fear",
+    "fearLabelCN": "极度恐惧",
+    "btcDominance": 56,
+    "totalMarketCap": "$2.06 万亿",
+    "btcMonthlyChange": -18.8,
+    "ethMonthlyChange": -21.9,
+    "supportResistance": "支撑 $58,500 → 阻力 $62,000",
+    "highlights": [
+      "💸 ETF 持续失血 — BTC/ETH 现货 ETF 5-6 月转为净赎回，单日最高流出超 $10 亿",
+      "🔄 历史首次 — 6 月 26 日 USDT 市值短暂超越 ETH",
+      "🚀 SpaceX IPO — 史上最大 IPO 6 月 12 日上市，持续从加密市场抽走流动性",
+      "📜 CLARITY 法案 — 美国加密监管立法推进中，被市场视为关键催化剂"
+    ]
+  },
+  "stockMovers": {
+    "us": [
+      { "name": "美光科技 MU", "change": "up", "detail": "盘后大涨 · Q3 营收 $414.6B，远超预期 $356.9B" },
+      { "name": "芯片板块", "change": "up", "detail": "集体反弹 · 费城半导体指数受美光财报提振领涨" },
+      { "name": "Anthropic", "change": "up", "detail": "估值 $9,650 亿，超越 OpenAI 成最高估值 AI 私企" },
+      { "name": "能源板块", "change": "down", "detail": "承压 · 美伊停火谈判致原油回落" }
+    ],
+    "cn": [
+      { "name": "联讯仪器", "change": "up", "detail": "+3200% · 科创板「股王」，股价 ¥2,777.77" },
+      { "name": "中际旭创", "change": "up", "detail": "光模块龙头，市值 ¥1.5 万亿" },
+      { "name": "兆易创新", "change": "up", "detail": "存储芯片，成交额 ¥384 亿 A 股第三" },
+      { "name": "腾讯 / 阿里", "change": "up", "detail": "恒生科技指数涨 3%" }
+    ],
+    "hotSectors": [
+      { "name": "AI 硬件/存储", "heat": 95, "note": "绝对主线（美光财报催化）" },
+      { "name": "AI 上游扩散", "heat": 72, "note": "小金属 · 液冷 · 光纤 · 电力设备" },
+      { "name": "半导体设备", "heat": 60, "note": "国产替代 + 资本开支扩张" },
+      { "name": "锂电/储能", "heat": 45, "note": "AI 算力带来的电力需求" }
+    ]
+  },
+  "worldNews": [
+    { "flag": "🇺🇸🇮🇷", "title": "美伊停火谈判", "summary": "霍尔木兹海峡局势暂缓，双方同意赴多哈谈判。特朗普威胁「军事歼灭」伊朗，参议院通过撤军决议" },
+    { "flag": "🇻🇪", "title": "委内瑞拉强震", "summary": "6.24 发生 7.2+7.5 级双地震，百年最强。1,450 人遇难，数千人失踪，多国救援抵达" },
+    { "flag": "🦠", "title": "埃博拉疫情升级", "summary": "刚果/乌干达 Bundibugyo 毒株，感染超 1,200 人、321 死。CDC 升至最高响应，美拨款 $1.07 亿" },
+    { "flag": "🌡️", "title": "欧洲极端热浪", "summary": "WHO 报告自 6.21 以来超 1,300 人超额死亡。巴黎 24h 内 109 人死于高温，法国/希腊/西班牙野火" },
+    { "flag": "🇷🇸🇰🇷", "title": "多国政局动荡", "summary": "塞尔维亚总统武契奇宣布辞职；韩国前第一夫人金建希获刑 7 年；特朗普支持率跌至 34%" }
+  ],
+  "commodities": {
+    "items": [
+      { "icon": "🥇", "name": "黄金 Gold", "price": "$4,078.13", "unit": "/oz", "change": -0.86 },
+      { "icon": "🛢️", "name": "原油 WTI", "price": "$72.93", "unit": "/bbl", "change": -0.39 },
+      { "icon": "🔩", "name": "铜 Copper", "price": "$6.14", "unit": "/oz", "change": -0.05 }
+    ],
+    "insight": "美伊停火谈判缓解供应担忧，原油已从月初高点回落近 20%。黄金随地缘溢价消退而回调。"
+  },
+  "techAI": [
+    { "title": "🔝 Anthropic 登顶 AI 王座", "summary": "估值 $9,650 亿超越 OpenAI，完成 $650 亿融资，年化收入 $470 亿。发布 Claude Fable 5 — 可发现 Firefox 271 个未知零日漏洞。" },
+    { "title": "🌐 WAIC 2026 · 300+ 款 AI 产品首发", "summary": "世界人工智能大会开幕，夏季达沃斯聚焦 AI 垂直场景：制造业/医疗/能源。高通展示 Agent AI 产业智能化实践。" },
+    { "title": "💰 算力军备竞赛白热化", "summary": "微软+亚马逊+谷歌+Meta 今年 AI 支出预计 $7,250 亿。软银承诺 €750 亿在法国建 AI 数据中心。推理成本正在超越训练成本。" },
+    { "title": "⚖️ 全球 AI 监管加速", "summary": "美国授权 Anthropic 向约 100 家机构分发 Mythos；欧盟发布高风险 AI 分类指南；英国推 16 岁以下社媒禁令。" }
+  ],
+  "property": [
+    { "title": "📈 政策底确认 · 销售回暖", "summary": "1-5 月 TOP100 房企新房销售额 ¥1.23 万亿，降幅连续 3 月收窄。5 月单月 ¥3,287.8 亿，环比 +17.6%。一线城市 5 月成交同比 +6%。" },
+    { "title": "🔓 限购松绑潮", "summary": "深圳放松核心区限购、广州「卖旧买新」补贴（¥20 亿总资金）、天津/武汉/苏州全面取消限购。1-5 月全国超 430 项地产政策出台。" },
+    { "title": "🏗️ 十五五新方向", "summary": "房地产纳入「消费驱动」章节，41 城发布「好房子」标准（济南层高 ≥3.15m）。百城新房价格环比 +0.16%，二手跌幅收窄至 -0.32%。" }
+  ],
+  "generatedAt": "2026-06-29T11:20:00+08:00"
+}
