@@ -1,4 +1,4 @@
-# 晨报生成指令
+# FinFlash 生成指令
 
 > 📋 **使用**：全文复制 → 粘贴到任意支持联网搜索的 AI → 自动生成当日晨报。
 >
@@ -36,7 +36,7 @@
 严格按以下格式输出，搜索无结果标 `📭 暂无数据`。
 
 ````markdown
-# ☀️ Morning Brief · 晨报
+# ⚡ FinFlash
 
 <div align="center">
 

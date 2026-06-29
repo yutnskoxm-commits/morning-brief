@@ -1,12 +1,12 @@
-# ☀️ 晨报系统
+# ⚡ FinFlash
 
-**核心文件**：[`prompt.md`](prompt.md) — 一份自包含的 AI 指令，发给任意支持联网搜索的 AI 即可自动生成当日晨报。
+**核心文件**：[`prompt.md`](prompt.md) — 一份自包含的 AI 指令，发给任意支持联网搜索的 AI 即可自动生成当日财经快报。
 
 ## 🌐 在线版
 
 **🔗 [https://yutnskoxm-commits.github.io/morning-brief/](https://yutnskoxm-commits.github.io/morning-brief/)**
 
-打开即看，每天自动更新实时行情。可分享到微信给朋友使用。
+打开即看，每天自动更新。可分享到微信给朋友使用。
 
 ## 🚀 使用方式
 
@@ -15,9 +15,9 @@
 1. 打开 [`prompt.md`](prompt.md)
 2. 全文复制
 3. 粘贴到任意支持联网搜索的 AI 模型（Claude、ChatGPT、Gemini 等）
-4. AI 自动搜索 7 大板块最新信息 → 汇总输出晨报
+4. AI 自动搜索 7 大板块最新信息 → 汇总输出快报
 
-> 💡 这就是整个项目的核心逻辑——prompt.md 就是「晨报 App」的源代码。
+> 💡 这就是整个项目的核心逻辑——prompt.md 就是「FinFlash App」的源代码。
 
 ### 辅助用法
 
@@ -41,10 +41,12 @@
 ## 📁 文件说明
 
 ```
-晨报/
+FinFlash/
 ├── prompt.md           # 🔑 核心：AI 指令文件（发给任意模型即可）
-├── reports/            # 生成的晨报存档
-│   └── 2026-06-29.md   # 示例报告
+├── index.html          # 🌐 网页版（GitHub Pages 部署）
+├── reports/            # 生成的报告存档
+│   ├── YYYY-MM-DD.json  # 网页版数据源
+│   └── YYYY-MM-DD.md    # Markdown 版
 ├── morning_report.py   # Python 回退脚本（仅量化数据）
 └── README.md           # 本文件
 ```

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-晨报生成器 — Python 回退脚本
-当 Claude 不在线时，可手动运行此脚本生成当日晨报。
+FinFlash 生成器 — Python 回退脚本
+当 Claude 不在线时，可手动运行此脚本生成当日FinFlash 快报。
 
 数据来源（免费，无需 API Key）：
   - CoinGecko API：加密货币价格
@@ -9,7 +9,7 @@
   - RSS 新闻源：全球新闻
 
 用法：
-  python3 morning_report.py           # 生成今天（周一至周五）的晨报
+  python3 morning_report.py           # 生成今天（周一至周五）的FinFlash 快报
   python3 morning_report.py --date 2026-07-01  # 指定日期
   python3 morning_report.py --output custom.md  # 自定义输出路径
 """
@@ -163,7 +163,7 @@ def fear_greed_label(val: int) -> str:
 
 
 def generate_report(date_str: str) -> str:
-    """生成晨报 markdown 内容"""
+    """生成FinFlash 快报 markdown 内容"""
     dt = datetime.strptime(date_str, "%Y-%m-%d")
     weekday = WEEKDAY_CN[dt.weekday()]
     date_cn = f"{dt.year}年{dt.month}月{dt.day}日"
@@ -178,11 +178,11 @@ def generate_report(date_str: str) -> str:
 
     # ── 组装报告 ──
     lines = []
-    lines.append(f"# ☀️ 晨报 — {date_cn} 星期{weekday}")
+    lines.append(f"# ☀️ FinFlash 快报 — {date_cn} 星期{weekday}")
     lines.append("")
     lines.append("> ⚠️ *免责声明：本报告由 Python 脚本自动生成，仅供信息参考，不构成投资建议。*")
     lines.append("")
-    lines.append("> 📭 标注「暂无数据」的板块表示 API 获取失败，可通过 Claude 晨报补充完整内容。")
+    lines.append("> 📭 标注「暂无数据」的板块表示 API 获取失败，可通过 Claude FinFlash 快报补充完整内容。")
     lines.append("")
     lines.append("---")
     lines.append("")
@@ -237,10 +237,10 @@ def generate_report(date_str: str) -> str:
 
     # ── 4-7. 新闻板块 ──
     for section, emoji, note in [
-        ("💹 活跃个股 / 板块", "💹", "📭 请通过 Claude 晨报获取个股和板块数据"),
-        ("🌍 全球宏观", "🌍", "📭 请通过 Claude 晨报获取全球新闻"),
-        ("🤖 科技 / AI", "🤖", "📭 请通过 Claude 晨报获取科技新闻"),
-        ("🏠 房地产", "🏠", "📭 请通过 Claude 晨报获取房地产新闻"),
+        ("💹 活跃个股 / 板块", "💹", "📭 请通过 Claude FinFlash 快报获取个股和板块数据"),
+        ("🌍 全球宏观", "🌍", "📭 请通过 Claude FinFlash 快报获取全球新闻"),
+        ("🤖 科技 / AI", "🤖", "📭 请通过 Claude FinFlash 快报获取科技新闻"),
+        ("🏠 房地产", "🏠", "📭 请通过 Claude FinFlash 快报获取房地产新闻"),
     ]:
         lines.append("---")
         lines.append("")
@@ -252,7 +252,7 @@ def generate_report(date_str: str) -> str:
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     lines.append("---")
     lines.append("")
-    lines.append(f"> 🤖 *Python 脚本自动生成于 {now} — 完整版请等待 Claude 晨报推送*")
+    lines.append(f"> 🤖 *Python 脚本自动生成于 {now} — 完整版请等待 Claude FinFlash 快报推送*")
 
     return "\n".join(lines)
 
@@ -260,7 +260,7 @@ def generate_report(date_str: str) -> str:
 # ── 主入口 ──────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="晨报生成器")
+    parser = argparse.ArgumentParser(description="FinFlash 快报生成器")
     parser.add_argument(
         "--date",
         default=datetime.now().strftime("%Y-%m-%d"),
@@ -286,7 +286,7 @@ def main():
     else:
         out_path = Path(args.output) if args.output else REPORTS_DIR / f"{args.date}.md"
         out_path.write_text(report, encoding="utf-8")
-        print(f"✅ 晨报已保存到: {out_path}")
+        print(f"✅ FinFlash 快报已保存到: {out_path}")
         print(f"📄 共 {len(report)} 字符")
 
 
