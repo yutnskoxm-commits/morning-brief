@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morning Brief · 晨报 — 2026/06/29</title>
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #191f2b;
+    --border: #252d3a;
+    --text: #c8ccd4;
+    --text-dim: #6b7280;
+    --text-bright: #e8eaed;
+    --green: #10b981;
+    --green-bg: rgba(16,185,129,0.10);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.10);
+    --gold: #f59e0b;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --cyan: #06b6d4;
+    --radius: 10px;
+    --font: 'SF Mono', 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+    --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 32px;
+    text-align: center;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .header h1 {
+    font-family: var(--font);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-bright);
+    letter-spacing: 1px;
+  }
+  .header .date {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .header .tags {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .header .tags span {
+    font-family: var(--font);
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .tag-red  { color: var(--red);  border-color: rgba(239,68,68,0.3) !important; }
+  .tag-gold { color: var(--gold); border-color: rgba(245,158,11,0.3) !important; }
+  .tag-blue { color: var(--blue); border-color: rgba(59,130,246,0.3) !important; }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── TL;DR Banner ── */
+  .tldr {
+    background: linear-gradient(135deg, #141b26 0%, #1a2235 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .tldr-item {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-left: 2px solid var(--border);
+    padding-left: 12px;
+  }
+  .tldr-item .label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .tldr-item .value { color: var(--text-bright); font-weight: 600; margin-top: 2px; }
+  .tldr-item .value.green { color: var(--green); }
+  .tldr-item .value.red   { color: var(--red); }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-bright);
+  }
+  .card-header .icon { font-size: 18px; }
+  .card-body { padding: 20px 22px; }
+
+  /* ── Grid ── */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    color: var(--text-dim);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0 0 10px 0;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(37,45,58,0.5);
+  }
+  tr:last-child td { border-bottom: none; }
+  .up   { color: var(--green); font-weight: 600; }
+  .down { color: var(--red);   font-weight: 600; }
+
+  /* ── Heatmap bar ── */
+  .heat-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 0;
+    font-size: 12px;
+  }
+  .heat-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    flex: 1;
+    overflow: hidden;
+    min-width: 60px;
+  }
+  .heat-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .6s;
+  }
+  .heat-fill.hot  { background: linear-gradient(90deg, var(--red), var(--gold)); }
+  .heat-fill.warm { background: linear-gradient(90deg, var(--gold), var(--green)); }
+
+  /* ── News list ── */
+  .news-item {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(37,45,58,0.4);
+    font-size: 13px;
+  }
+  .news-item:last-child { border-bottom: none; }
+  .news-item .flag { margin-right: 6px; }
+  .news-item strong { color: var(--text-bright); }
+
+  /* ── Crypto ticker ── */
+  .crypto-ticker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .ticker-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .ticker-box .name { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; }
+  .ticker-box .price { font-family: var(--font); font-size: 28px; font-weight: 700; color: var(--text-bright); margin: 4px 0; }
+  .ticker-box .change { font-size: 13px; font-weight: 600; }
+
+  /* ── Fear gauge ── */
+  .fear-gauge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .fear-gauge .gauge-bar {
+    flex: 1;
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #ef4444 0%, #f59e0b 30%, #10b981 60%, #10b981 100%);
+    position: relative;
+  }
+  .fear-gauge .gauge-dot {
+    position: absolute;
+    top: -4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid var(--bg);
+    transform: translateX(-50%);
+  }
+
+  /* ── Quote block ── */
+  .insight {
+    background: var(--surface);
+    border-left: 3px solid var(--blue);
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--text-dim);
+    border-radius: 0 6px 6px 0;
+  }
+  .insight strong { color: var(--text-bright); }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 11px;
+    padding: 30px 0 10px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .crypto-ticker { grid-template-columns: 1fr; }
+    .header h1 { font-size: 18px; }
+    .tldr { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="header">
+  <h1>☀️ Morning Brief · 晨报</h1>
+  <div class="date">2026 年 6 月 29 日 · 星期一</div>
+  <div class="tags">
+    <span class="tag-red">🔴 极度恐惧</span>
+    <span class="tag-gold">📉 全球承压</span>
+    <span class="tag-blue">🌍 地缘缓和</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ═══════════ TL;DR ═══════════ -->
+<div class="tldr">
+  <div class="tldr-item">
+    <div class="label">🏛️ 美联储</div>
+    <div class="value">利率 3.50%-3.75% 不变</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">🪙 Bitcoin</div>
+    <div class="value red">$59,900 · -0.5%</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">🛢️ 原油 WTI</div>
+    <div class="value red">$72.93 · 月跌 20%</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">📊 纳斯达克</div>
+    <div class="value red">25,298 · 周跌 4.6%</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">🤖 Anthropic</div>
+    <div class="value green">估值 $9,650 亿</div>
+  </div>
+</div>
+
+<!-- ═══════════ ROW 1: 大盘 + 加密货币 ═══════════ -->
+<div class="grid-2">
+
+  <!-- 大盘指数 -->
+  <div class="card">
+    <div class="card-header"><span class="icon">📊</span> 大盘指数 · Global Markets</div>
+    <div class="card-body">
+      <table>
+        <tr><th>指数</th><th>点位</th><th>涨跌</th></tr>
+        <tr><td>🇨🇳 上证 SSE</td><td><strong>4,020.44</strong></td><td class="down">-0.17% ▼</td></tr>
+        <tr><td>🇭🇰 恒生 HSI</td><td><strong>22,671.86</strong></td><td class="down">-1.76% ▼</td></tr>
+        <tr><td>🇺🇸 标普 S&P 500</td><td><strong>7,354.02</strong></td><td class="down">-0.05% ▼</td></tr>
+        <tr><td>🇺🇸 纳斯达克 NASDAQ</td><td><strong>25,297.62</strong></td><td class="down">-0.24% ▼</td></tr>
+        <tr><td>🇺🇸 道琼斯 DJIA</td><td><strong>51,876.11</strong></td><td class="down">-0.09% ▼</td></tr>
+      </table>
+      <div class="insight">
+        💡 纳指上周累跌 <strong>4.6%</strong>，创年内最大单周跌幅。盘前期货 <strong style="color:#10b981">+0.5%</strong>，美伊停火消息提振。
+      </div>
+    </div>
+  </div>
+
+  <!-- 加密货币 -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🪙</span> 加密货币 · Crypto</div>
+    <div class="card-body">
+      <div class="crypto-ticker">
+        <div class="ticker-box">
+          <div class="name">₿ Bitcoin / BTC</div>
+          <div class="price">$59,900</div>
+          <div class="change down">🔴 -0.5% ▼</div>
+        </div>
+        <div class="ticker-box">
+          <div class="name">Ξ Ethereum / ETH</div>
+          <div class="price">$1,560</div>
+          <div class="change down">🔴 -0.8% ▼</div>
+        </div>
+      </div>
+      <table>
+        <tr><th>指标</th><th>数值</th></tr>
+        <tr><td>🎭 恐惧贪婪指数</td><td class="down"><strong>17</strong> · Extreme Fear · 周期最低</td></tr>
+        <tr><td>📊 总市值</td><td><strong>$2.06 万亿</strong></td></tr>
+        <tr><td>📉 BTC 月跌幅</td><td class="down">-18.8%</td></tr>
+        <tr><td>📉 ETH 月跌幅</td><td class="down">-21.9%</td></tr>
+      </table>
+      <div class="fear-gauge">
+        <span style="font-size:11px;color:var(--text-dim)">恐惧</span>
+        <div class="gauge-bar">
+          <div class="gauge-dot" style="left:17%"></div>
+        </div>
+        <span style="font-size:11px;color:var(--text-dim)">贪婪</span>
+      </div>
+      <div class="insight">
+        🔑 BTC 关键位：支撑 <strong>$58,500</strong> → 阻力 <strong>$62,000</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ ROW 2: 活跃个股 ═══════════ -->
+<div class="card">
+  <div class="card-header"><span class="icon">💹</span> 热门个股 & 板块 · Stock Movers</div>
+  <div class="card-body">
+    <div class="grid-2">
+      <div>
+        <div style="font-weight:600;color:var(--text-bright);margin-bottom:10px;">🇺🇸 美股</div>
+        <div class="news-item"><strong>美光科技 MU</strong> <span class="up">🟢 盘后大涨</span> · Q3 营收 $414.6B 远超预期</div>
+        <div class="news-item"><strong>芯片板块</strong> <span class="up">🟢 集体反弹</span> · 费城半导体指数领涨</div>
+        <div class="news-item"><strong>Anthropic</strong> <span class="up">🟢</span> · 估值 $9,650 亿，超越 OpenAI</div>
+        <div class="news-item"><strong>能源板块</strong> <span class="down">🔴 承压</span> · 美伊停火致原油回落</div>
+      </div>
+      <div>
+        <div style="font-weight:600;color:var(--text-bright);margin-bottom:10px;">🇨🇳 A 股 / 港股</div>
+        <div class="news-item"><strong>联讯仪器</strong> <span class="up">🟢 +3200%</span> · 科创板股王，股价 ¥2,777</div>
+        <div class="news-item"><strong>中际旭创</strong> <span class="up">🟢</span> · 光模块龙头，市值 ¥1.5 万亿</div>
+        <div class="news-item"><strong>兆易创新</strong> <span class="up">🟢</span> · 存储芯片，成交额 ¥384 亿</div>
+        <div class="news-item"><strong>腾讯 / 阿里</strong> <span class="up">🟢</span> · 恒生科技指数涨 3%</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-weight:600;color:var(--text-bright);margin-bottom:8px;">🔥 热点板块热度</div>
+    <div class="heat-row">AI 硬件/存储 <div class="heat-bar"><div class="heat-fill hot" style="width:95%"></div></div> <span style="color:var(--red)">绝对主线</span></div>
+    <div class="heat-row">AI 上游扩散 <div class="heat-bar"><div class="heat-fill hot" style="width:72%"></div></div> 小金属·液冷·光纤</div>
+    <div class="heat-row">半导体设备 <div class="heat-bar"><div class="heat-fill warm" style="width:60%"></div></div> 国产替代</div>
+    <div class="heat-row">锂电/储能 <div class="heat-bar"><div class="heat-fill warm" style="width:45%"></div></div> AI 电力需求</div>
+  </div>
+</div>
+
+<!-- ═══════════ ROW 3: 全球宏观 ═══════════ -->
+<div class="card">
+  <div class="card-header"><span class="icon">🌍</span> 全球宏观 · World Brief</div>
+  <div class="card-body">
+    <table>
+      <tr><th style="width:50px"></th><th style="width:140px">事件</th><th>要点</th></tr>
+      <tr>
+        <td>🇺🇸🇮🇷</td><td><strong>美伊停火谈判</strong></td>
+        <td>霍尔木兹海峡局势暂缓，多哈谈判启动。特朗普威胁「军事歼灭」伊朗，参议院通过撤军决议</td>
+      </tr>
+      <tr>
+        <td>🇻🇪</td><td><strong>委内瑞拉强震</strong></td>
+        <td>7.2+7.5 级百年最强地震，<span style="color:var(--red)"><strong>1,450 人遇难</strong></span>，多国救援抵达</td>
+      </tr>
+      <tr>
+        <td>🦠</td><td><strong>埃博拉疫情升级</strong></td>
+        <td>刚果/乌干达感染超 1,200 人·321 死，CDC 最高警戒，美拨款 $1.07 亿</td>
+      </tr>
+      <tr>
+        <td>🌡️</td><td><strong>欧洲极端热浪</strong></td>
+        <td>WHO：超 <span style="color:var(--red)"><strong>1,300 人</strong></span> 死亡，巴黎 109 人/24h，多国野火</td>
+      </tr>
+      <tr>
+        <td>🇷🇸🇰🇷</td><td><strong>多国政局动荡</strong></td>
+        <td>塞尔维亚总统辞职；韩国前第一夫人获刑 7 年；特朗普支持率跌至 <span style="color:var(--red)"><strong>34%</strong></span></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════ ROW 4: 大宗 + 科技 + 房地产 ═══════════ -->
+<div class="grid-3">
+
+  <!-- 大宗商品 -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🛢️</span> 大宗商品</div>
+    <div class="card-body">
+      <table>
+        <tr><th>商品</th><th>价格</th><th>涨跌</th></tr>
+        <tr><td>🥇 黄金</td><td><strong>$4,078</strong>/oz</td><td class="down">-0.86%</td></tr>
+        <tr><td>🛢️ 原油</td><td><strong>$72.93</strong>/bbl</td><td class="down">-0.39%</td></tr>
+        <tr><td>🔩 铜</td><td><strong>$6.14</strong>/oz</td><td class="down">-0.05%</td></tr>
+      </table>
+      <div class="insight">
+        💡 原油从月初 $91 回落近 <strong>20%</strong>，美伊停火缓解供应担忧。
+      </div>
+    </div>
+  </div>
+
+  <!-- 科技/AI -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🤖</span> 科技 & AI</div>
+    <div class="card-body">
+      <div class="news-item"><strong>🔝 Anthropic 登顶</strong><br>估值 $9,650 亿超 OpenAI，Fable 5 可发现 Firefox 271 个零日漏洞</div>
+      <div class="news-item"><strong>🌐 WAIC 2026</strong><br>300+ 款 AI 产品首发，达沃斯聚焦制造/医疗/能源</div>
+      <div class="news-item"><strong>💰 算力竞赛</strong><br>四巨头年支出 $7,250 亿，软银 €750 亿建法国 AI 数据中心</div>
+    </div>
+  </div>
+
+  <!-- 房地产 -->
+  <div class="card">
+    <div class="card-header"><span class="icon">🏠</span> 房地产</div>
+    <div class="card-body">
+      <div class="news-item"><strong>📈 政策底确认</strong><br>5 月百强房企销售 ¥3,288 亿 <span class="up">+17.6%</span>，一线城市成交同比 <span class="up">+6%</span></div>
+      <div class="news-item"><strong>🔓 限购松绑潮</strong><br>深圳/广州/天津/武汉/苏州松绑，全国 <strong>430+</strong> 项政策出台</div>
+      <div class="news-item"><strong>🏗️ 十五五方向</strong><br>41 城发布「好房子」标准，百城新房价格 <span class="up">+0.16%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="footer">
+  ⚡ AI 自动生成 · 2026-06-29 · 数据来源 WebSearch 实时搜索 · 仅供参考不构成投资建议
+</div>
+
+</div>
+</body>
+</html>

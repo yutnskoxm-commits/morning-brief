@@ -2,6 +2,12 @@
 
 **核心文件**：[`prompt.md`](prompt.md) — 一份自包含的 AI 指令，发给任意支持联网搜索的 AI 即可自动生成当日晨报。
 
+## 🌐 在线版
+
+**🔗 [https://yutnskoxm-commits.github.io/morning-brief/](https://yutnskoxm-commits.github.io/morning-brief/)**
+
+打开即看，每天自动更新实时行情。可分享到微信给朋友使用。
+
 ## 🚀 使用方式
 
 ### 主要用法：发送 prompt.md 给任意 AI

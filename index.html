@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>☀️ Morning Brief · 晨报</title>
+<meta property="og:title" content="☀️ Morning Brief · 晨报">
+<meta property="og:description" content="每日自动更新的中英双语财经晨报 · 加密货币 · 股票 · 大宗商品 · 全球新闻">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://img.shields.io/badge/☀️_Morning_Brief-每日晨报-0a0e14?style=for-the-badge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="每日自动更新的中英双语财经晨报，涵盖加密货币、全球股市、大宗商品、AI 科技、房地产等 7 大板块。">
+
+<style>
+  :root {
+    --bg: #0a0e14;
+    --surface: #131820;
+    --card: #191f2b;
+    --border: #252d3a;
+    --text: #c8ccd4;
+    --text-dim: #6b7280;
+    --text-bright: #e8eaed;
+    --green: #10b981;
+    --green-bg: rgba(16,185,129,0.10);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.10);
+    --gold: #f59e0b;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --radius: 10px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 20px 20px;
+    text-align: center;
+  }
+  .header h1 {
+    font-family: 'SF Mono','JetBrains Mono','Menlo',monospace;
+    font-size: 24px; font-weight: 700;
+    color: var(--text-bright);
+    letter-spacing: 1px;
+  }
+  .header .date {
+    color: var(--text-dim);
+    font-size: 14px; margin-top: 6px;
+  }
+  .header .tags {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .header .tags span {
+    font-family: 'SF Mono',monospace;
+    font-size: 11px;
+    padding: 4px 14px;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .tag-red  { color: var(--red);  border-color: rgba(239,68,68,0.3) !important; }
+  .tag-gold { color: var(--gold); border-color: rgba(245,158,11,0.3) !important; }
+  .tag-green{ color: var(--green);border-color: rgba(16,185,129,0.3) !important; }
+
+  /* Loading */
+  .loading {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-dim);
+  }
+  .loading .pulse {
+    display: inline-block;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--blue);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* Container */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  /* TL;DR */
+  .tldr {
+    background: linear-gradient(135deg, #141b26 0%, #1a2235 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 10px;
+  }
+  .tldr-item {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-left: 2px solid var(--border);
+  }
+  .tldr-item .label { color: var(--text-dim); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .tldr-item .value { color: var(--text-bright); font-weight: 600; margin-top: 2px; }
+  .tldr-item .value.up   { color: var(--green); }
+  .tldr-item .value.down { color: var(--red); }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .card-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-bright);
+  }
+  .card-body { padding: 18px 20px; }
+
+  /* Grid */
+  .grid-2, .grid-3 { display: grid; gap: 18px; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left; color: var(--text-dim);
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
+    padding: 0 0 10px 0; font-weight: 500;
+    border-bottom: 1px solid var(--border);
+  }
+  td { padding: 7px 0; border-bottom: 1px solid rgba(37,45,58,0.4); }
+  tr:last-child td { border-bottom: none; }
+  .up   { color: var(--green); font-weight: 600; }
+  .down { color: var(--red);   font-weight: 600; }
+
+  /* Ticker boxes */
+  .ticker-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .ticker-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px;
+    text-align: center;
+  }
+  .ticker-box .name { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; margin-bottom: 4px; }
+  .ticker-box .price { font-family: 'SF Mono',monospace; font-size: 30px; font-weight: 700; color: var(--text-bright); }
+  .ticker-box .change { font-size: 14px; font-weight: 600; margin-top: 4px; }
+
+  /* Fear gauge */
+  .fear-bar-wrap {
+    display: flex; align-items: center; gap: 10px; margin-top: 8px;
+  }
+  .fear-bar-wrap .label { font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+  .fear-bar {
+    flex: 1; height: 8px; border-radius: 4px;
+    background: linear-gradient(90deg, #ef4444 0%, #f59e0b 30%, #4ade80 65%, #22c55e 100%);
+    position: relative;
+  }
+  .fear-dot {
+    position: absolute; top: -4px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: white; border: 3px solid var(--bg);
+    transform: translateX(-50%);
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Heat bars */
+  .heat-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 4px 0; font-size: 12px;
+  }
+  .heat-bar {
+    flex: 1; height: 6px; border-radius: 3px;
+    background: var(--border); overflow: hidden; min-width: 50px;
+  }
+  .heat-fill {
+    height: 100%; border-radius: 3px;
+    transition: width 0.8s;
+  }
+  .heat-fill.top  { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+  .heat-fill.mid  { background: linear-gradient(90deg, #f59e0b, #10b981); }
+
+  /* News items */
+  .news-item {
+    padding: 9px 0; border-bottom: 1px solid rgba(37,45,58,0.4);
+    font-size: 13px;
+  }
+  .news-item:last-child { border-bottom: none; }
+
+  /* Insight */
+  .insight {
+    background: var(--surface);
+    border-left: 3px solid var(--blue);
+    padding: 12px 16px; margin-top: 14px;
+    font-size: 12px; color: var(--text-dim);
+    border-radius: 0 6px 6px 0;
+  }
+  .insight strong { color: var(--text-bright); }
+
+  /* Skeleton loading */
+  .skeleton {
+    background: linear-gradient(90deg, var(--border) 25%, #2a3345 50%, var(--border) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 4px;
+  }
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center; color: var(--text-dim);
+    font-size: 11px; padding: 20px 0 10px;
+    border-top: 1px solid var(--border);
+    margin-top: 10px;
+  }
+  .footer a { color: var(--blue); text-decoration: none; }
+
+  /* Refresh badge */
+  .refresh-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; color: var(--green);
+    background: var(--green-bg);
+    padding: 3px 10px; border-radius: 99px;
+    margin-top: 8px;
+  }
+  .refresh-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* Error state */
+  .stale {
+    color: var(--gold);
+    font-size: 10px;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .ticker-row { grid-template-columns: 1fr; }
+    .header h1 { font-size: 18px; }
+    .tldr { grid-template-columns: 1fr 1fr; }
+    .ticker-box .price { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <h1>☀️ Morning Brief · 晨报</h1>
+  <div class="date" id="headerDate">加载中...</div>
+  <div class="tags" id="headerTags">
+    <span class="skeleton" style="width:80px;height:22px;"></span>
+    <span class="skeleton" style="width:90px;height:22px;"></span>
+    <span class="skeleton" style="width:80px;height:22px;"></span>
+  </div>
+  <div id="refreshBadge"></div>
+</header>
+
+<div class="container" id="app">
+  <div class="loading">
+    <div class="pulse"></div>
+    <p style="margin-top:12px;">正在获取最新数据...</p>
+  </div>
+</div>
+
+<div class="footer">
+  ⚡ <span id="updateTime">自动更新中</span> · 数据来源 CoinGecko / Yahoo Finance / Metals.live<br>
+  仅供信息参考不构成投资建议 · <a href="https://github.com/yutnskoxm-commits/morning-brief" target="_blank">GitHub</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+//  DATA FETCHING
+// ═══════════════════════════════════════
+
+const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+
+async function fetchJSON(url, useProxy = false) {
+  const target = useProxy ? CORS_PROXY + encodeURIComponent(url) : url;
+  const res = await fetch(target, {
+    headers: { 'Accept': 'application/json' },
+    signal: AbortSignal.timeout(8000)
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+async function fetchCrypto() {
+  try {
+    const data = await fetchJSON(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true&include_market_cap=true'
+    );
+    return {
+      btc: {
+        price: data.bitcoin.usd,
+        change: data.bitcoin.usd_24h_change,
+        marketCap: data.bitcoin.usd_market_cap
+      },
+      eth: {
+        price: data.ethereum.usd,
+        change: data.ethereum.usd_24h_change,
+        marketCap: data.ethereum.usd_market_cap
+      }
+    };
+  } catch (e) {
+    console.warn('CoinGecko fetch failed:', e.message);
+    return null;
+  }
+}
+
+async function fetchFearGreed() {
+  try {
+    const data = await fetchJSON('https://api.alternative.me/fng/?limit=1');
+    return {
+      value: parseInt(data.data[0].value),
+      classification: data.data[0].value_classification
+    };
+  } catch (e) {
+    console.warn('Fear & Greed fetch failed:', e.message);
+    return null;
+  }
+}
+
+async function fetchGold() {
+  try {
+    const data = await fetchJSON('https://api.metals.live/v1/spot/gold');
+    if (Array.isArray(data) && data[0] && data[0].price) {
+      return { price: data[0].price };
+    }
+    return null;
+  } catch (e) {
+    console.warn('Gold fetch failed:', e.message);
+    return null;
+  }
+}
+
+async function fetchStock(symbol) {
+  try {
+    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?interval=1d&range=5d`;
+    const data = await fetchJSON(url);
+    const result = data.chart.result[0];
+    const meta = result.meta;
+    const quotes = result.indicators.quote[0];
+    const closes = quotes.close.filter(c => c !== null);
+    if (closes.length < 2) return null;
+    const current = closes[closes.length - 1];
+    const prev = closes[closes.length - 2];
+    const changePct = ((current - prev) / prev) * 100;
+    return {
+      price: current,
+      change: changePct,
+      name: meta.symbol || symbol
+    };
+  } catch (e) {
+    console.warn(`Stock ${symbol} fetch failed:`, e.message);
+    return null;
+  }
+}
+
+async function fetchOil() {
+  try {
+    const data = await fetchJSON(
+      'https://query1.finance.yahoo.com/v8/finance/chart/CL=F?interval=1d&range=5d'
+    );
+    const result = data.chart.result[0];
+    const quotes = result.indicators.quote[0];
+    const closes = quotes.close.filter(c => c !== null);
+    if (closes.length < 2) return null;
+    const current = closes[closes.length - 1];
+    const prev = closes[closes.length - 2];
+    return {
+      price: current,
+      change: ((current - prev) / prev) * 100
+    };
+  } catch (e) {
+    console.warn('Oil fetch failed:', e.message);
+    return null;
+  }
+}
+
+// ═══════════════════════════════════════
+//  FORMATTING
+// ═══════════════════════════════════════
+
+function fmt(n, decimals = 2) {
+  if (n == null) return '—';
+  return Number(n).toLocaleString('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
+function fmtChange(val) {
+  if (val == null) return ['—', ''];
+  const sign = val >= 0 ? '+' : '';
+  const cls = val >= 0 ? 'up' : 'down';
+  const arrow = val >= 0 ? '▲' : '▼';
+  return [`${sign}${val.toFixed(2)}% ${arrow}`, cls];
+}
+
+function fmtPrice(val, prefix = '$') {
+  if (val == null) return '—';
+  if (val >= 1000) return `${prefix}${fmt(val, 2)}`;
+  return `${prefix}${fmt(val, 2)}`;
+}
+
+const WEEKDAYS = ['日','一','二','三','四','五','六'];
+
+function getDateInfo() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = now.getMonth() + 1;
+  const d = now.getDate();
+  const w = WEEKDAYS[now.getDay()];
+  return {
+    full: `${y} 年 ${m} 月 ${d} 日 · 星期${w}`,
+    iso: `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`
+  };
+}
+
+// ═══════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════
+
+function fearLabel(v) {
+  if (v <= 25) return ['极度恐惧', 'Extreme Fear', 'tag-red'];
+  if (v <= 45) return ['恐惧', 'Fear', 'tag-red'];
+  if (v <= 55) return ['中性', 'Neutral', 'tag-gold'];
+  if (v <= 75) return ['贪婪', 'Greed', 'tag-green'];
+  return ['极度贪婪', 'Extreme Greed', 'tag-green'];
+}
+
+function render(data, dateInfo) {
+  const { crypto, fg, gold, stocks, oil } = data;
+
+  // Header
+  document.getElementById('headerDate').textContent = dateInfo.full;
+
+  const tags = [];
+  if (fg) {
+    const [cn, en, cls] = fearLabel(fg.value);
+    tags.push(`<span class="${cls}">🎭 ${cn} · ${en}</span>`);
+  }
+  if (stocks && stocks.sp500 && stocks.sp500.change < -0.3) {
+    tags.push('<span class="tag-red">📉 全球承压</span>');
+  } else if (stocks && stocks.sp500 && stocks.sp500.change > 0.3) {
+    tags.push('<span class="tag-green">📈 市场回暖</span>');
+  }
+  if (oil && oil.change < -1) {
+    tags.push('<span class="tag-gold">🛢️ 油价回落</span>');
+  }
+  document.getElementById('headerTags').innerHTML = tags.join('') || '<span style="color:var(--text-dim);font-size:12px">数据加载中...</span>';
+
+  document.getElementById('refreshBadge').innerHTML = `
+    <div class="refresh-badge"><div class="refresh-dot"></div>实时数据 · ${new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit'})} 更新</div>
+  `;
+
+  // TL;DR
+  const tldrItems = [];
+  if (crypto) {
+    tldrItems.push({ label: '🪙 Bitcoin', value: `${fmtPrice(crypto.btc.price)}`, cls: crypto.btc.change >= 0 ? 'up' : 'down' });
+  }
+  if (fg) {
+    tldrItems.push({ label: '🎭 恐惧指数', value: `${fg.value} · ${fearLabel(fg.value)[1]}`, cls: fg.value <= 25 ? 'down' : 'up' });
+  }
+  if (stocks && stocks.nasdaq) {
+    tldrItems.push({ label: '📊 纳斯达克', value: `${fmt(stocks.nasdaq.price, 2)}`, cls: stocks.nasdaq.change >= 0 ? 'up' : 'down' });
+  }
+  if (oil) {
+    tldrItems.push({ label: '🛢️ 原油 WTI', value: `${fmtPrice(oil.price)}/bbl`, cls: oil.change >= 0 ? 'up' : 'down' });
+  }
+  if (gold) {
+    tldrItems.push({ label: '🥇 黄金', value: `${fmtPrice(gold.price)}/oz`, cls: 'up' });
+  }
+
+  const tldrHTML = tldrItems.map(item =>
+    `<div class="tldr-item">
+      <div class="label">${item.label}</div>
+      <div class="value ${item.cls}">${item.value}</div>
+    </div>`
+  ).join('');
+
+  // Stock table rows
+  const stockRows = [];
+  const stockMap = [
+    ['🇨🇳 上证 SSE', stocks?.sse],
+    ['🇭🇰 恒生 HSI', stocks?.hsi],
+    ['🇺🇸 标普 S&P 500', stocks?.sp500],
+    ['🇺🇸 纳斯达克 NASDAQ', stocks?.nasdaq],
+    ['🇺🇸 道琼斯 DJIA', stocks?.dji],
+  ];
+  stockMap.forEach(([name, s]) => {
+    if (s) {
+      const [chgStr, chgCls] = fmtChange(s.change);
+      stockRows.push(`<tr><td>${name}</td><td><strong>${fmt(s.price, 2)}</strong></td><td class="${chgCls}">${chgStr}</td></tr>`);
+    } else {
+      stockRows.push(`<tr><td>${name}</td><td colspan="2" style="color:var(--text-dim)">📭 暂无</td></tr>`);
+    }
+  });
+
+  // Crypto tickers
+  let cryptoHTML = '<div style="color:var(--text-dim);text-align:center;padding:20px">📭 数据获取中...</div>';
+  if (crypto) {
+    const btcChg = fmtChange(crypto.btc.change);
+    const ethChg = fmtChange(crypto.eth.change);
+    const btcDom = crypto.btc.marketCap && crypto.eth.marketCap
+      ? ((crypto.btc.marketCap / (crypto.btc.marketCap + crypto.eth.marketCap)) * 100).toFixed(1)
+      : null;
+
+    cryptoHTML = `
+      <div class="ticker-row">
+        <div class="ticker-box">
+          <div class="name">₿ Bitcoin / BTC</div>
+          <div class="price">${fmtPrice(crypto.btc.price)}</div>
+          <div class="change ${btcChg[1]}">${btcChg[0]}</div>
+        </div>
+        <div class="ticker-box">
+          <div class="name">Ξ Ethereum / ETH</div>
+          <div class="price">${fmtPrice(crypto.eth.price)}</div>
+          <div class="change ${ethChg[1]}">${ethChg[0]}</div>
+        </div>
+      </div>
+      <table>
+        <tr><th>指标</th><th>数值</th></tr>
+        ${fg ? `<tr><td>🎭 恐惧贪婪指数</td><td class="${fg.value <= 25 ? 'down' : 'up'}"><strong>${fg.value}</strong> · ${fearLabel(fg.value)[1]}</td></tr>` : ''}
+        ${btcDom ? `<tr><td>📊 BTC 市值占比</td><td><strong>${btcDom}%</strong></td></tr>` : ''}
+        <tr><td>📉 BTC 24h</td><td class="${btcChg[1]}">${btcChg[0]}</td></tr>
+        <tr><td>📉 ETH 24h</td><td class="${ethChg[1]}">${ethChg[0]}</td></tr>
+      </table>
+      ${fg ? `
+      <div class="fear-bar-wrap">
+        <span class="label">恐惧</span>
+        <div class="fear-bar"><div class="fear-dot" style="left:${fg.value}%"></div></div>
+        <span class="label">贪婪</span>
+      </div>` : ''}
+    `;
+  }
+
+  // Commodity rows
+  const commRows = [];
+  if (gold) {
+    commRows.push(`<tr><td>🥇 黄金 Gold</td><td><strong>${fmtPrice(gold.price)}</strong>/oz</td><td style="color:var(--text-dim)">实时</td></tr>`);
+  } else {
+    commRows.push(`<tr><td>🥇 黄金 Gold</td><td colspan="2" style="color:var(--text-dim)">📭 暂无</td></tr>`);
+  }
+  if (oil) {
+    const [oChg, oCls] = fmtChange(oil.change);
+    commRows.push(`<tr><td>🛢️ 原油 WTI</td><td><strong>${fmtPrice(oil.price)}</strong>/bbl</td><td class="${oCls}">${oChg}</td></tr>`);
+  } else {
+    commRows.push(`<tr><td>🛢️ 原油 WTI</td><td colspan="2" style="color:var(--text-dim)">📭 暂无</td></tr>`);
+  }
+  commRows.push(`<tr><td>🔩 铜 Copper</td><td colspan="2" style="color:var(--text-dim)">📭 暂无（需 API）</td></tr>`);
+
+  // Final HTML
+  document.getElementById('app').innerHTML = `
+    <!-- TL;DR -->
+    <div class="tldr">${tldrHTML}</div>
+
+    <!-- Row 1: Stocks + Crypto -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">📊 大盘指数 · Global Markets</div>
+        <div class="card-body">
+          <table>${stockRows.join('')}</table>
+          <div class="insight">
+            💡 数据源 Yahoo Finance，刷新频率 5 分钟。完整市场分析请查看 AI 每日晨报。
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">🪙 加密货币 · Crypto</div>
+        <div class="card-body">${cryptoHTML}</div>
+      </div>
+    </div>
+
+    <!-- Row 2: Commodities + Info -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">🛢️ 大宗商品 · Commodities</div>
+        <div class="card-body">
+          <table>${commRows.join('')}</table>
+          <div class="insight">
+            💡 黄金数据实时更新。原油数据来自 Yahoo Finance。
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">🤖📰 完整晨报 · Full Report</div>
+        <div class="card-body">
+          <div class="news-item">
+            <strong>🔍 本页面为实时行情看板</strong><br>
+            <span style="color:var(--text-dim);font-size:12px">
+              加密货币、股票指数、大宗商品价格自动更新。
+            </span>
+          </div>
+          <div class="news-item">
+            <strong>📝 AI 深度晨报</strong><br>
+            <span style="color:var(--text-dim);font-size:12px">
+              包含全球宏观、科技/AI、房地产、热点板块等 7 大板块深度分析。<br>
+              由 AI 每日自动搜索生成，点击下方查看 →
+            </span>
+          </div>
+          <div class="news-item">
+            <strong>📋 使用方法</strong><br>
+            <span style="color:var(--text-dim);font-size:12px">
+              将 <code style="background:var(--surface);padding:2px 6px;border-radius:3px;">晨报.md</code> 指令文件发送给任意 AI 模型，<br>
+              即可生成包含新闻摘要的完整晨报。
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('updateTime').textContent =
+    `数据更新于 ${new Date().toLocaleTimeString('zh-CN', {hour:'2-digit',minute:'2-digit',second:'2-digit'})}`;
+}
+
+// ═══════════════════════════════════════
+//  MAIN
+// ═══════════════════════════════════════
+
+async function main() {
+  const dateInfo = getDateInfo();
+
+  // Fetch all data in parallel
+  const [crypto, fg, gold, sse, hsi, sp500, nasdaq, dji, oil] = await Promise.all([
+    fetchCrypto(),
+    fetchFearGreed(),
+    fetchGold(),
+    fetchStock('000001.SS'),
+    fetchStock('^HSI'),
+    fetchStock('^GSPC'),
+    fetchStock('^IXIC'),
+    fetchStock('^DJI'),
+    fetchOil()
+  ]);
+
+  const data = {
+    crypto,
+    fg,
+    gold,
+    stocks: { sse, hsi, sp500, nasdaq, dji },
+    oil
+  };
+
+  render(data, dateInfo);
+
+  // Auto-refresh every 5 minutes
+  setInterval(async () => {
+    const [c, f, g, o] = await Promise.all([
+      fetchCrypto(), fetchFearGreed(), fetchGold(), fetchOil()
+    ]);
+    if (c) data.crypto = c;
+    if (f) data.fg = f;
+    if (g) data.gold = g;
+    if (o) data.oil = o;
+    render(data, getDateInfo());
+  }, 300000); // 5 min
+}
+
+main().catch(err => {
+  console.error('Initial load failed:', err);
+  document.getElementById('app').innerHTML = `
+    <div class="loading">
+      <p style="color:var(--red)">⚠️ 数据加载失败</p>
+      <p style="color:var(--text-dim);font-size:12px;margin-top:8px">请检查网络连接后刷新页面</p>
+      <button onclick="location.reload()" style="
+        margin-top:16px;padding:8px 20px;
+        background:var(--blue);color:white;border:none;
+        border-radius:6px;cursor:pointer;font-size:14px;
+      ">🔄 重新加载</button>
+    </div>
+  `;
+});
+</script>
+</body>
+</html>
