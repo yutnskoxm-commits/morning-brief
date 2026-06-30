@@ -1,0 +1,87 @@
+{
+  "date": "2026-06-30",
+  "dateCN": "2026年6月30日 星期二",
+  "tags": ["🔴 极度恐惧", "📈 美股反弹", "🌍 地缘博弈"],
+  "tldr": [
+    { "label": "📊 纳斯达克", "value": "25,820 · +2.07%", "cls": "up" },
+    { "label": "🪙 Bitcoin", "value": "$60,066 · +0.12%", "cls": "up" },
+    { "label": "🇺🇸 道琼斯", "value": "52,183 · 历史新高", "cls": "up" },
+    { "label": "🇨🇳 上证", "value": "4,074 · +1.16%", "cls": "up" },
+    { "label": "🥇 黄金", "value": "$4,030 · -1.61%", "cls": "down" }
+  ],
+  "stocks": {
+    "indices": [
+      { "flag": "🇨🇳", "name": "上证 SSE", "price": 4073.90, "change": 1.16 },
+      { "flag": "🇭🇰", "name": "恒生 HSI", "price": 23026.68, "change": 1.57 },
+      { "flag": "🇺🇸", "name": "标普 S&P 500", "price": 7440.43, "change": 1.18 },
+      { "flag": "🇺🇸", "name": "纳斯达克 NASDAQ", "price": 25820.14, "change": 2.07 },
+      { "flag": "🇺🇸", "name": "道琼斯 DJIA", "price": 52182.74, "change": 0.59 }
+    ],
+    "insight": "美股终结五连跌，道指首破 52,000 点创历史新高，纳指暴涨 2.07%。科技股大幅反弹，特斯拉 +8%，SpaceX +7%，谷歌 +4%。美伊停火消息提振市场情绪。A 股同样集体收涨，科创 50 飙 4.61% 创历史新高。"
+  },
+  "crypto": {
+    "btc": { "price": 60066, "change": 0.12 },
+    "eth": { "price": 1579, "change": 0.74 },
+    "fearGreed": 15,
+    "fearLabel": "Extreme Fear",
+    "fearLabelCN": "极度恐惧",
+    "btcDominance": 58.8,
+    "totalMarketCap": "$2.06 万亿",
+    "btcMonthlyChange": -17.3,
+    "ethMonthlyChange": -20.5,
+    "supportResistance": "支撑 $58,500 → 阻力 $62,000",
+    "highlights": [
+      "📊 市场企稳 — BTC 守住 $60K 支撑，ETH 重回 $1,570 上方，总市值 $2.06 万亿",
+      "📉 ETF 持续失血 — ETH 现货 ETF 6 月净流出 $4.71 亿，持续压制 ETH 表现",
+      "🏦 Strategy 调整策略 — MicroStrategy 更名后宣布可能出售最高 $12.5 亿 BTC 补充现金储备",
+      "⏳ 等待催化剂 — 市场聚焦本周美国 6 月非农就业数据，将影响利率预期"
+    ]
+  },
+  "stockMovers": {
+    "us": [
+      { "name": "特斯拉 TSLA", "change": "up", "detail": "+8% · 美股科技集体反弹，领涨七巨头" },
+      { "name": "SpaceX", "change": "up", "detail": "+7% · 史上最大 IPO 持续受追捧" },
+      { "name": "谷歌 GOOGL", "change": "up", "detail": "+4% · 被纳入道琼斯指数，但 AI 算力短缺问题引关注" },
+      { "name": "Palantir PLTR", "change": "up", "detail": "+4.6% · 宣布与 NVIDIA 合作部署政府 AI 系统" }
+    ],
+    "cn": [
+      { "name": "联讯仪器", "change": "up", "detail": "+3400% 累计 · CPO 光模块龙头，科创板股王" },
+      { "name": "中际旭创", "change": "up", "detail": "光模块核心，市值 ¥1.5 万亿" },
+      { "name": "中船特气", "change": "up", "detail": "+930% · 电子特气龙头，日本停产六氟化钨引爆行情" },
+      { "name": "利通电子", "change": "up", "detail": "+800% · AI 算力租赁需求爆发" }
+    ],
+    "hotSectors": [
+      { "name": "CPO 光模块", "heat": 98, "note": "1.6T 出货量激增，英伟达 CPO 交换机批量交付" },
+      { "name": "PCB/光纤/MLCC", "heat": 88, "note": "AI 用量 8-10 倍于传统，涨价逻辑持续" },
+      { "name": "AI 上游材料", "heat": 78, "note": "电子特气 · 小金属 · 玻璃基板" },
+      { "name": "存储芯片", "heat": 72, "note": "NOR Flash/SLC NAND 合约价涨幅破 100%" }
+    ]
+  },
+  "worldNews": [
+    { "flag": "🇺🇸🇮🇷", "title": "美伊停火博弈", "summary": "美伊同意停火并在多哈会面，但伊朗否认将直接谈判，称仅讨论 $60 亿冻结资产解冻。以色列警告可能「明天就对伊朗开战」。" },
+    { "flag": "🇻🇪", "title": "委内瑞拉强震死亡升至 1,719", "summary": "6.24 双地震（7.2+7.5 级）遇难人数持续攀升，超 5,000 人受伤，近 16,000 人受影响，多国援助进行中。" },
+    { "flag": "🇺🇸", "title": "美最高法院保护 Fed 独立性", "summary": "裁定总统不得随意解雇美联储理事，驳回特朗普解雇 Fed 理事 Lisa Cook 的决定。同时维持特朗普需向 E. Jean Carroll 支付 $500 万赔偿的判决。" },
+    { "flag": "🇯🇵", "title": "日元跌至 161.96 创 1986 年来新低", "summary": "日元兑美元跌破 162 关口，超越 2024 年干预点。日本公布新经济蓝图，目标 2040 年实际增长 >1%，投资超 ¥370 万亿。" },
+    { "flag": "🇵🇪", "title": "秘鲁大选藤森惠子险胜", "summary": "右翼候选人藤森惠子以 50.135% 得票率（仅领先 0.27%）赢得总统选举，对手尚未承认败选。" }
+  ],
+  "commodities": {
+    "items": [
+      { "icon": "🥇", "name": "黄金 Gold", "price": "$4,030.50", "unit": "/oz", "change": -1.61 },
+      { "icon": "🛢️", "name": "原油 WTI", "price": "$70.75", "unit": "/bbl", "change": 2.20 },
+      { "icon": "🔩", "name": "铜 Copper", "price": "$6.18", "unit": "/oz", "change": 0.09 }
+    ],
+    "insight": "黄金回落至 $4,030，中东地缘风险缓和削弱避险需求。原油反弹 2.2% 至 $70.75，市场在停火预期与实际供给担忧间摇摆。铜价横盘整理。"
+  },
+  "techAI": [
+    { "title": "🔝 Anthropic 登陆 Azure + Blackwell Ultra", "summary": "Claude Opus 4.8 和 Haiku 4 全面上线微软 Azure，由 NVIDIA GB300 Blackwell Ultra GPU 驱动，面向企业自主 Agent 工作负载。与亚马逊重谈协议，从按时计费转为按 Token 计价。" },
+    { "title": "🤯 Google 陷入 AI 算力危机", "summary": "尽管股价涨 5% 并被纳入道指，Google 面临严重 AI 算力瓶颈。3 月曾告知 Meta 无法提供 Gemini 算力，对 Gemini 实施流量配额，Gemini 联合负责人 Noam Shazeer 跳槽 OpenAI。" },
+    { "title": "🇰🇷 韩国宣布 4,755 万亿韩元 AI 投资计划", "summary": "三星和 SK 集团联合推进，目标五年内 DRAM 产能翻倍。但三大存储巨头遭美国集体诉讼，指控 DRAM 价格操纵和供应控制。" },
+    { "title": "🚀 DeepSeek V4 预告 7 月中旬发布", "summary": "将推出峰谷差异化 API 定价。国务院推动加速 AI 创新，包括超大规模智能计算集群建设。国际清算银行 (BIS) 警告 AI 泡沫风险。" }
+  ],
+  "property": [
+    { "title": "📈 政策底夯实 · 进入筑底年", "summary": "业内公认 2026 年为「筑底年」。城市更新首部国家级专项规划落地，新开工改造老旧小区 11.5 万个，中央财政投入 970 亿 + 1,600 亿特别国债用于地下管网。" },
+    { "title": "🏛️ 「一房一码一档」制度建立", "summary": "住建部与国家数据局联合推行房屋建筑统一代码，住宅细化到套（户），目标 2030 年建成全生命周期数据集。" },
+    { "title": "🏙️ 一线城市领涨企稳", "summary": "一线城市房价指数连续 3 个月环比反弹，8 城二手房挂牌量较去年末减少 9 万套（-7%），全国新房待售面积连续 3 月下降。" }
+  ],
+  "generatedAt": "2026-06-30T08:05:00+08:00"
+}
