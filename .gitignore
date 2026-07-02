@@ -1,0 +1,4 @@
+desktop/build/
+desktop/node_modules/
+desktop/package-lock.json
+.DS_Store
